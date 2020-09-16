@@ -1,0 +1,50 @@
+syntax = "proto2";
+
+package pi.raspberry.camera.bluetooth;
+
+option java_package = "pi.raspberry.camera.bluetooth";
+option java_outer_classname = "RPiBtCameraProtos";
+
+message ConfigV1 {
+  enum Exposure {
+    auto      = 0;
+    night     = 1;
+    backlight = 2;
+    spotlight = 3;
+    sports    = 4;
+    snow      = 5;
+    beach     = 6;
+    verylong  = 7;
+    fixedfps  = 8;
+    antishake = 9;
+    fireworks = 10;
+  }
+  enum WhiteBalance {
+    off          = 0;
+    auto         = 1;
+    sun          = 2;
+    cloud        = 3;
+    shade        = 4;
+    tungsten     = 5;
+    fluorescent  = 6;
+    incandescent = 7;
+    flash        = 8;
+    horizon      = 9;
+    greyworld    = 10;
+  }
+
+  // Device settings
+  optional string device_name = 1;
+  optional int32 image_interval = 2;
+  
+
+
+  // RPi camera settings
+  optional int32 sharpness   = 10; // 0 - 200 (transformed to -100 - 100)
+  optional int32 contrast    = 11; // 0 - 200 (transformed to -100 - 100)
+  optional int32 brightness  = 12; // 0 - 100
+  optional int32 saturation  = 13; // 0 - 200 (transformed to -100 - 100)
+  optional int32 iso         = 14; // 100 - 800
+  optional int32 ev          = 15; // 0 - 20 (transformed to -10 - 10)
+  optional Exposure exposure = 16;
+}
