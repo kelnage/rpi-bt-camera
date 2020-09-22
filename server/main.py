@@ -10,7 +10,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)s %(name)s %(message)s', lev
 
 
 class MainServer:
-  BT_UUID = ''
+  BT_UUID = '12007a4e-7d4c-46f2-b76f-fc26b1181d05'
 
   def __init__(self):
     self.logger = logging.getLogger(self.__class__.__name__)
@@ -54,6 +54,8 @@ class MainServer:
     except (bluetooth.BluetoothError, OSError) as error:
       self.logger.error("Could not advertise bluetooth service", exc_info=error)
       return False
+
+    return True
 
   def listen(self):
     while True:
