@@ -5,9 +5,44 @@ package pi.raspberry.camera.bluetooth;
 option java_package = "pi.raspberry.camera.bluetooth";
 option java_outer_classname = "RPiBtCameraProtos";
 
+message CommandV1 {
+  enum Action {
+    get_config = 0;
+    set_config = 1;
+    get_latest_images = 2;
+    capture_image = 3;
+  }
+
+  required Action action = 1;
+  optional int64 lastTime = 2;
+  optional ConfigV1 config = 3;
+}
+
+message ResponseV1 {
+  enum ResponseType {
+    success = 0;
+    failure = 1;
+  }
+
+  required ResponseType result = 1;
+  optional ConfigV1 config = 2;
+  repeated ImageV1 images = 3;
+}
+
+message ImageV1 {
+  enum ImageFormat {
+    jpg = 0;
+    bmp = 1;
+  }
+
+  required bytes imageData = 1;
+  required ImageFormat format = 2;
+  required int64 timestamp = 3;
+}
+
 message ConfigV1 {
   enum Exposure {
-    auto      = 0;
+    autoExp   = 0;
     night     = 1;
     backlight = 2;
     spotlight = 3;
@@ -21,7 +56,7 @@ message ConfigV1 {
   }
   enum WhiteBalance {
     off          = 0;
-    auto         = 1;
+    autoWB       = 1;
     sun          = 2;
     cloud        = 3;
     shade        = 4;
@@ -36,8 +71,6 @@ message ConfigV1 {
   // Device settings
   optional string device_name = 1;
   optional int32 image_interval = 2;
-  
-
 
   // RPi camera settings
   optional int32 sharpness   = 10; // 0 - 200 (transformed to -100 - 100)
