@@ -1,2 +1,5 @@
 venv/
 __pycache__
+# ignore files derived from the protocol file
+server/proto/
+client/app/src/main/java/pi/raspberry/camera/client/proto/
