@@ -3,7 +3,7 @@ syntax = "proto2";
 package pi.raspberry.camera.bluetooth;
 
 option java_package = "pi.raspberry.camera.bluetooth";
-option java_outer_classname = "RPiBtCameraProtos";
+option java_outer_classname = "RPiBtCameraProtocol";
 
 message CommandV1 {
   enum Action {
@@ -11,11 +11,13 @@ message CommandV1 {
     set_config = 1;
     get_latest_images = 2;
     capture_image = 3;
+    end_session = 4;
   }
 
-  required Action action = 1;
-  optional int64 lastTime = 2;
-  optional ConfigV1 config = 3;
+  required int64 requestId = 1;
+  required Action action = 2;
+  optional int64 lastTime = 3;
+  optional ConfigV1 config = 4;
 }
 
 message ResponseV1 {
@@ -24,9 +26,10 @@ message ResponseV1 {
     failure = 1;
   }
 
-  required ResponseType result = 1;
-  optional ConfigV1 config = 2;
-  repeated ImageV1 images = 3;
+  required int64 requestId = 1;
+  required ResponseType result = 2;
+  optional ConfigV1 config = 3;
+  repeated ImageV1 images = 4;
 }
 
 message ImageV1 {
@@ -41,22 +44,30 @@ message ImageV1 {
 }
 
 message ConfigV1 {
+  enum Resolution {
+    h320  = 0;
+    h640  = 1;
+    h1024 = 2;
+    h1280 = 3;
+    h1440 = 4;
+    h1920 = 5;
+  }
   enum Exposure {
-    autoExp   = 0;
-    night     = 1;
-    backlight = 2;
-    spotlight = 3;
-    sports    = 4;
-    snow      = 5;
-    beach     = 6;
-    verylong  = 7;
-    fixedfps  = 8;
-    antishake = 9;
-    fireworks = 10;
+    auto_exp   = 0;
+    night      = 1;
+    backlight  = 2;
+    spotlight  = 3;
+    sports     = 4;
+    snow       = 5;
+    beach      = 6;
+    very_long  = 7;
+    fixed_fps  = 8;
+    anti_shake = 9;
+    fireworks  = 10;
   }
   enum WhiteBalance {
     off          = 0;
-    autoWB       = 1;
+    auto_wb      = 1;
     sun          = 2;
     cloud        = 3;
     shade        = 4;
@@ -65,7 +76,7 @@ message ConfigV1 {
     incandescent = 7;
     flash        = 8;
     horizon      = 9;
-    greyworld    = 10;
+    grey_world   = 10;
   }
 
   // Device settings
@@ -73,11 +84,15 @@ message ConfigV1 {
   optional int32 image_interval = 2;
 
   // RPi camera settings
-  optional int32 sharpness   = 10; // 0 - 200 (transformed to -100 - 100)
-  optional int32 contrast    = 11; // 0 - 200 (transformed to -100 - 100)
-  optional int32 brightness  = 12; // 0 - 100
-  optional int32 saturation  = 13; // 0 - 200 (transformed to -100 - 100)
-  optional int32 iso         = 14; // 100 - 800
-  optional int32 ev          = 15; // 0 - 20 (transformed to -10 - 10)
-  optional Exposure exposure = 16;
+  optional Resolution resolution = 10;
+  optional int32 sharpness       = 11; // 0 - 200 (transformed to -100 - 100)
+  optional int32 contrast        = 12; // 0 - 200 (transformed to -100 - 100)
+  optional int32 brightness      = 13; // 0 - 100
+  optional int32 saturation      = 14; // 0 - 200 (transformed to -100 - 100)
+  optional int32 iso             = 15; // 100 - 800
+  optional int32 ev              = 16; // 0 - 20 (transformed to -10 - 10)
+  optional Exposure exposure     = 17;
+
+  // Image camera settings (test)
+  optional string path       = 255;
 }
