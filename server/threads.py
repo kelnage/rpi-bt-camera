@@ -1,11 +1,13 @@
 import logging
-from msg_handler import MessageHandler
 import struct
 import threading
 import time
 from typing import BinaryIO
+
 import google.protobuf.message as pb_msg
+
 import proto.Messages_pb2 as Msg
+from msg_handler import MessageHandler
 
 
 class Database(threading.Thread):
@@ -71,7 +73,7 @@ class Bluetooth(threading.Thread):
     while active:
       try:
         msg_len_raw = self.client_sock.recv(Bluetooth.MSG_LENGTH_FIELD_SIZE)  # blocks until receiving data
-        (msg_len, ) = struct.unpack(Bluetooth.MSG_LENGTH_FORMAT, msg_len_raw)
+        (msg_len,) = struct.unpack(Bluetooth.MSG_LENGTH_FORMAT, msg_len_raw)
 
         command = Msg.CommandV1()
         command.ParseFromString(self.__recv(msg_len))

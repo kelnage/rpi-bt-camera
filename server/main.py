@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
-import bluetooth
-from database import SqliteDatabase
-import threads
-from image_camera import ImageCamera
-from msg_handler import MessageHandler
+import logging
 # from rasp_pi_camera import RaspPiCamera
 import sys
-import logging
+
+import bluetooth
+
+import threads
+from database import SqliteDatabase
+from image_camera import ImageCamera
+from msg_handler import MessageHandler
 
 logging.basicConfig(format='%(asctime)s %(levelname)s %(threadName)s %(name)s %(message)s', level=logging.INFO)
 

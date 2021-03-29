@@ -1,5 +1,6 @@
-from database import SqliteDatabase
 import os
+
+from database import SqliteDatabase
 
 database_path = 'test.sqlite'
 

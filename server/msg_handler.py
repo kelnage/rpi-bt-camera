@@ -1,13 +1,15 @@
 import logging
-import threads
+
 import proto.Messages_pb2 as Msg
+import threads
 
 
 class MessageHandler:
   def __init__(self):
     self.logger = logging.getLogger(self.__class__.__name__)
 
-  def handle_command(self, command: Msg.CommandV1, camera: threads.Camera, database: threads.Database) -> Msg.ResponseV1:
+  def handle_command(self, command: Msg.CommandV1, camera: threads.Camera,
+                     database: threads.Database) -> Msg.ResponseV1:
     if command.action == Msg.CommandV1.Action.end_session:
       return None
     else:

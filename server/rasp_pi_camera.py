@@ -1,9 +1,10 @@
 import io
 import logging
-import picamera as pic
-import proto.Messages_pb2 as Msg
-from typing import Optional, BinaryIO
 from time import sleep
+
+import picamera as pic
+
+import proto.Messages_pb2 as Msg
 
 
 class RaspPiCamera:

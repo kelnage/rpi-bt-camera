@@ -1,5 +1,5 @@
 import logging
-from typing import BinaryIO
+
 import proto.Messages_pb2 as Msg
 
 
