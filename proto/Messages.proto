@@ -82,6 +82,8 @@ message ConfigV1 {
   // Device settings
   optional string device_name = 1;
   optional int32 image_interval = 2;
+  optional int32 image_retention = 3; // how many images should be retained
+  optional Resolution preview_resolution = 4;
 
   // RPi camera settings
   optional Resolution resolution = 10;
