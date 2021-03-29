@@ -12,10 +12,11 @@ class ImageCamera:
     if config.path:
       self.path = config.path
 
-  def take_photo(self) -> BinaryIO:
+  def take_photo(self) -> bytes:
     self.logger.info("Capturing image %s", self.path)
     try:
-      image = open(self.path, mode='rb')
-      return image
+      with open(self.path, mode='rb') as image_file:
+        image_data = image_file.read()
+        return image_data
     except IOError as ioe:
       self.logger.error("Failed to capture image", exc_info=ioe)

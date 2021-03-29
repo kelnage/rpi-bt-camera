@@ -6,11 +6,10 @@ test_image_path = 'test/data/rpi-logo.jpg'
 
 def test_take_photo():
   camera = ImageCamera()
-  image = camera.take_photo()
+  image_data = camera.take_photo()
   with open(test_image_path, 'rb') as original:
-    assert image is not None
-    assert original.read() == image.read()
-  image.close()
+    assert image_data is not None
+    assert original.read() == image_data
 
 
 def test_load_config():

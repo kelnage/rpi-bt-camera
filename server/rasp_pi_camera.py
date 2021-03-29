@@ -28,11 +28,11 @@ class RaspPiCamera:
       self.resolution = RaspPiCamera.RESOLUTIONS[config.resolution]
     # TODO: remaining configuration
 
-  def take_photo(self) -> BinaryIO:
+  def take_photo(self) -> bytes:
     self.logger.info("Capturing image from camera")
     camera = pic.PiCamera()
     camera.resolution = self.resolution
     sleep(2)
     image = io.BytesIO()
     camera.capture(image)
-    return image
+    return image.read()
